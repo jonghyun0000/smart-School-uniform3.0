@@ -6,21 +6,64 @@ import { useCustomer } from './CustomerContext';
 import type { OrderType } from '@/types/database';
 
 const MENU_ITEMS = [
-  { label: '교복 구매', icon: ShoppingBag, color: 'bg-red-50 text-red-600', href: '/customer/order?type=교복구매', desc: '동복·하복 교복 주문' },
-  { label: '체육복 구매', icon: ShoppingBag, color: 'bg-blue-50 text-blue-600', href: '/customer/order?type=체육복구매', desc: '체육복 주문' },
-  { label: '명찰 구매', icon: Star, color: 'bg-yellow-50 text-yellow-600', href: '/customer/order?type=명찰구매', desc: '명찰 주문' },
-  { label: '수선 접수', icon: Scissors, color: 'bg-purple-50 text-purple-600', href: '/customer/repair', desc: '교복 수선 신청' },
-  { label: '사전 예약', icon: Calendar, color: 'bg-green-50 text-green-600', href: '/customer/reservation', desc: '방문 예약 (30분 단위)' },
-  { label: '환불/교환 문의', icon: RefreshCw, color: 'bg-orange-50 text-orange-600', href: '/customer/exchange', desc: '환불·교환 신청' },
+  {
+    label: '교복 구매',
+    icon: ShoppingBag,
+    color: 'bg-red-50 text-red-600',
+    // ✅ /customer/order?type=교복구매 → 이제 page.tsx 존재
+    href: '/customer/order?type=교복구매',
+    orderType: '교복구매' as OrderType,
+    desc: '동복·하복 교복 주문',
+  },
+  {
+    label: '체육복 구매',
+    icon: ShoppingBag,
+    color: 'bg-blue-50 text-blue-600',
+    href: '/customer/order?type=체육복구매',
+    orderType: '체육복구매' as OrderType,
+    desc: '체육복 주문',
+  },
+  {
+    label: '명찰 구매',
+    icon: Star,
+    color: 'bg-yellow-50 text-yellow-600',
+    href: '/customer/order?type=명찰구매',
+    orderType: '명찰구매' as OrderType,
+    desc: '명찰 주문',
+  },
+  {
+    label: '수선 접수',
+    icon: Scissors,
+    color: 'bg-purple-50 text-purple-600',
+    href: '/customer/repair',
+    orderType: null,
+    desc: '교복 수선 신청',
+  },
+  {
+    label: '사전 예약',
+    icon: Calendar,
+    color: 'bg-green-50 text-green-600',
+    href: '/customer/reservation',
+    orderType: null,
+    desc: '방문 예약 (30분 단위)',
+  },
+  {
+    label: '환불/교환 문의',
+    icon: RefreshCw,
+    color: 'bg-orange-50 text-orange-600',
+    href: '/customer/exchange',
+    orderType: null,
+    desc: '환불·교환 신청',
+  },
 ];
 
 export default function CustomerHomePage() {
   const router = useRouter();
   const { dispatch } = useCustomer();
 
-  const handleMenuClick = (href: string, type?: string) => {
-    if (type) {
-      dispatch({ type: 'SET_ORDER_TYPE', payload: type as OrderType });
+  const handleMenuClick = (href: string, orderType: OrderType | null) => {
+    if (orderType) {
+      dispatch({ type: 'SET_ORDER_TYPE', payload: orderType });
     }
     router.push(href);
   };
@@ -36,9 +79,10 @@ export default function CustomerHomePage() {
         <p className="text-white/80 text-sm mt-1">춘천점 셀프 주문 시스템</p>
       </div>
 
-      {/* 시작하기 버튼 - 가장 위, 크게 */}
+      {/* 시작하기 버튼 */}
       <div className="px-4 -mt-5">
         <button
+          type="button"
           onClick={() => router.push('/customer/start')}
           className="btn-press w-full bg-white rounded-2xl shadow-lg px-6 py-5 flex items-center justify-between border-2 border-rose-500 active:scale-95 transition-transform"
         >
@@ -62,7 +106,8 @@ export default function CustomerHomePage() {
           {MENU_ITEMS.map((item) => (
             <button
               key={item.label}
-              onClick={() => handleMenuClick(item.href, item.href.includes('type=') ? item.href.split('type=')[1] : undefined)}
+              type="button"
+              onClick={() => handleMenuClick(item.href, item.orderType)}
               className="btn-press card p-4 text-left active:scale-95 transition-transform"
             >
               <div className={`w-11 h-11 rounded-xl ${item.color} flex items-center justify-center mb-3`}>
@@ -98,10 +143,11 @@ export default function CustomerHomePage() {
       <div className="mx-4 mb-6 bg-amber-50 rounded-2xl p-4">
         <p className="text-xs font-semibold text-amber-700">📢 안내사항</p>
         <p className="text-xs text-amber-600 mt-1">
-          교복·체육복 이월제품 20% 할인<br/>
+          교복·체육복 이월제품 20% 할인<br />
           천명찰 2,000원 / 리본·타이류 별도 5,000원
         </p>
       </div>
     </div>
   );
 }
+

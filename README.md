@@ -1,5 +1,10 @@
 # 스마트학생복 매장 자동화 웹앱
 
+링크
+https://smart-school-uniform-app2-0-iw2y.vercel.app/customer
+
+https://smart-school-uniform-app2-0-iw2y.vercel.app/admin
+
 스마트학생복 춘천점 셀프 주문 / 예약 / 재고관리 / 통계 시스템  
 (Next.js 14 + TypeScript + Tailwind CSS + Supabase)
 

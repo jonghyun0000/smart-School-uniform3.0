@@ -1,5 +1,3 @@
-'use client';
-
 import { CustomerProvider } from './CustomerContext';
 import BottomNav from '@/components/customer/BottomNav';
 

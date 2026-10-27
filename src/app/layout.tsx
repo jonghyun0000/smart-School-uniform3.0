@@ -3,9 +3,12 @@ import './globals.css';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
+  applicationName: '스마트학생복',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: { capable: true, title: '스마트학생복', statusBarStyle: 'default' },
+  icons: { icon: [{ url: '/icons/app-32.png', sizes: '32x32', type: 'image/png' }], apple: [{ url: '/icons/app-180.png', sizes: '180x180', type: 'image/png' }] },
   title: '스마트학생복 춘천점',
   description: '스마트 학생복 셀프 주문/예약 시스템',
-  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
